@@ -1,87 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/bases/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/bases/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/bases/modele-osi/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/bases/modele-osi/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/bash/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/bash/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/bash/arguments/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/bash/arguments/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/bash/automatisation/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/bash/automatisation/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/bash/boucles/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/bash/boucles/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/bash/chaines/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/bash/chaines/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/bash/conditions/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/bash/conditions/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/bash/debug/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/bash/debug/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/bash/fonctions/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/bash/fonctions/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/bash/naviguer-terminal/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/bash/naviguer-terminal/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/bash/operateurs/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/bash/operateurs/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/bash/premier-script/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/bash/premier-script/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/bash/recettes-bash/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/bash/recettes-bash/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/bash/redirections/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/bash/redirections/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/bash/tableaux/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/bash/tableaux/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/bash/variables/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/bash/variables/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/osint/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/osint/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/pentest/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/pentest/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
     <url>
-         <loc>https://h4ckeurm4n.github.io/CyberSec-notes/python/</loc>
+         <loc>https://h4ckeurm4n.github.io/CyberSec-site/python/</loc>
          <lastmod>2026-05-25</lastmod>
     </url>
 </urlset>
