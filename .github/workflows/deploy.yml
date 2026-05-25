@@ -1,0 +1,31 @@
+name: Déploiement du site
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+# Masque l'avertissement MkDocs 2.0 (sans incidence sur le build)
+env:
+  NO_MKDOCS_2_WARNING: "1"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # nécessaire pour les dates Git
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+
+      - name: Construire et déployer
+        run: mkdocs gh-deploy --force

@@ -1,0 +1,141 @@
+site_name: CyberSec Notes
+site_description: Notes pour moi-même, prises au fil de mes cours, labs, certifications, exercices pratiques et recherches.
+site_author: H4ckeurM4n
+# À remplacer par ton URL réelle une fois déployé
+site_url: https://h4ckeurm4n.github.io/CyberSec-notes/
+copyright: Copyright &copy; 2026 CyberSec
+
+# Active les liens "Modifier cette page" vers ton dépôt (optionnel)
+repo_url: https://github.com/H4ckeurM4n/CyberSec-notes
+repo_name: H4ckeurM4n/CyberSec-notes
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: fr
+  font:
+    text: Inter
+    code: JetBrains Mono
+  icon:
+    repo: fontawesome/brands/github
+    logo: material/shield-lock
+  favicon: assets/favicon.png
+  palette:
+    # Mode clair
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: Passer en mode sombre
+    # Mode sombre
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Passer en mode clair
+  features:
+    - navigation.tabs          # Les 5 piliers en onglets en haut
+    - navigation.tabs.sticky   # Onglets toujours visibles au scroll
+    - navigation.sections      # Regroupe les pages par section
+    - navigation.top           # Bouton "remonter en haut"
+    - navigation.indexes       # La page index.md sert de page de section
+    - navigation.footer        # Liens précédent/suivant en bas
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy        # Bouton copier sur les blocs de code
+    - content.code.annotate    # Annotations dans le code
+    - content.tabs.link
+
+plugins:
+  - search:
+      lang: fr
+  # Date de création/modif automatique en bas des pages (via Git)
+  - git-revision-date-localized:
+      type: date
+      enable_creation_date: true
+      fallback_to_build_date: true
+  # Génère un sitemap.xml et des tags
+  - tags
+
+markdown_extensions:
+  # Mise en forme
+  - abbr
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      title: Sur cette page
+  # Encadrés (note, astuce, avertissement…)
+  - admonition
+  - pymdownx.details
+  # Blocs de code
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  # Onglets de contenu (ex: Linux / macOS / Windows)
+  - pymdownx.tabbed:
+      alternate_style: true
+  # Listes de tâches, surlignage, émojis Material
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra_css:
+  - assets/extra.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/H4ckeurM4n
+  generator: false  # Masque "Made with Material for MkDocs"
+
+# La navigation : chaque pilier est un onglet, ses fiches sont listées dessous.
+# Ajoute simplement une ligne quand tu crées une nouvelle fiche.
+nav:
+  - Accueil: index.md
+  - Bases:
+      - bases/index.md
+      - Le modèle OSI: bases/modele-osi.md
+  - Bash:
+    - bash/index.md
+    - Le terminal:
+        - Naviguer dans le terminal: bash/naviguer-terminal.md
+    - Scripting Bash:
+        - Écrire son premier script: bash/premier-script.md
+        - Variables et saisie: bash/variables.md
+        - Arguments et variables spéciales: bash/arguments.md
+        - Redirections, erreurs et pipes: bash/redirections.md
+        - Opérateurs et calculs: bash/operateurs.md
+        - Conditions et tests: bash/conditions.md
+        - Les boucles: bash/boucles.md
+        - Fonctions et case: bash/fonctions.md
+        - Manipuler les chaînes: bash/chaines.md
+        - Les tableaux: bash/tableaux.md
+        - Déboguer et scripts propres: bash/debug.md
+    - Cas pratiques:
+        - "Automatisation : cron et cas pratiques": bash/automatisation.md
+        - Recettes Bash utiles: bash/recettes-bash.md
+  - Python:
+      - python/index.md
+  - Pentest:
+      - pentest/index.md
+  - OSINT:
+      - osint/index.md
