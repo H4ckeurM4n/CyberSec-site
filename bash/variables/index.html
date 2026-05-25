@@ -1,0 +1,3604 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Notes pour moi-même, prises au fil de mes cours, labs, certifications, exercices pratiques et recherches.">
+      
+      
+        <meta name="author" content="H4ckeurM4n">
+      
+      
+        <link rel="canonical" href="https://h4ckeurm4n.github.io/CyberSec-notes/bash/variables/">
+      
+      
+        <link rel="prev" href="../premier-script/">
+      
+      
+        <link rel="next" href="../arguments/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Variables et saisie - CyberSec Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#variables-affichage-et-saisie" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../.." title="CyberSec Notes" class="md-header__button md-logo" aria-label="CyberSec Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5zm0 6c1.4 0 2.8 1.1 2.8 2.5V11c.6 0 1.2.6 1.2 1.3v3.5c0 .6-.6 1.2-1.3 1.2H9.2c-.6 0-1.2-.6-1.2-1.3v-3.5c0-.6.6-1.2 1.2-1.2V9.5C9.2 8.1 10.6 7 12 7m0 1.2c-.8 0-1.5.5-1.5 1.3V11h3V9.5c0-.8-.7-1.3-1.5-1.3"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CyberSec Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Variables et saisie
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Passer en mode sombre"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer en mode sombre" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Passer en mode clair"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer en mode clair" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Partager" aria-label="Partager" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/H4ckeurM4n/CyberSec-notes" title="Aller au dépôt" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    H4ckeurM4n/CyberSec-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../bases/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Bases
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Bash
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../python/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Python
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../pentest/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Pentest
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../osint/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  OSINT
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CyberSec Notes" class="md-nav__button md-logo" aria-label="CyberSec Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5zm0 6c1.4 0 2.8 1.1 2.8 2.5V11c.6 0 1.2.6 1.2 1.3v3.5c0 .6-.6 1.2-1.3 1.2H9.2c-.6 0-1.2-.6-1.2-1.3v-3.5c0-.6.6-1.2 1.2-1.2V9.5C9.2 8.1 10.6 7 12 7m0 1.2c-.8 0-1.5.5-1.5 1.3V11h3V9.5c0-.8-.7-1.3-1.5-1.3"/></svg>
+
+    </a>
+    CyberSec Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/H4ckeurM4n/CyberSec-notes" title="Aller au dépôt" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    H4ckeurM4n/CyberSec-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../bases/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bases
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Bases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bases/modele-osi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le modèle OSI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bash
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Bash
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le terminal
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Le terminal
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naviguer-terminal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naviguer dans le terminal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scripting Bash
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scripting Bash
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../premier-script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Écrire son premier script
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables et saisie
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables et saisie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Sur cette page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Sur cette page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objectifs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objectifs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-retenir-en-30-secondes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        À retenir en 30 secondes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creer-une-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Créer une variable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-regle-critique-pas-despace-autour-du" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La règle critique : pas d’espace autour du =
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#afficher-le-contenu-dune-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Afficher le contenu d’une variable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pourquoi-mettre-les-variables-entre-guillemets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pourquoi mettre les variables entre guillemets ?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifier-une-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modifier une variable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nommage-des-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nommage des variables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-forme-variable-pour-eviter-les-ambiguites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La forme ${variable} pour éviter les ambiguïtés
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guillemets-simples-ou-doubles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guillemets simples ou doubles ?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparaison-simple" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparaison simple
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demander-une-saisie-avec-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Demander une saisie avec read
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-simple-avec-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple simple avec read
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saisie-invisible-avec-read-s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saisie invisible avec read -s
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timeout-avec-read-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timeout avec read -t
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#options-utiles-de-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options utiles de read
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-cyber-faciliter-un-scan-nmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple cyber : faciliter un scan Nmap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stocker-le-resultat-dune-commande-commande" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stocker le résultat d’une commande : $(commande)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utiliser-commande-directement-dans-un-texte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utiliser $(commande) directement dans un texte
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stocker-plusieurs-resultats-de-commandes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stocker plusieurs résultats de commandes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-compter-les-fichiers-dans-un-dossier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple : compter les fichiers dans un dossier
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-recuperer-les-20-derniers-caracteres-dune-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple : récupérer les 20 derniers caractères d’une variable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-mesurer-la-longueur-dune-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple : mesurer la longueur d’une variable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ancienne-syntaxe-avec-backticks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ancienne syntaxe avec backticks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variables-denvironnement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variables d’environnement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variables-denvironnement-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variables d’environnement utiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creer-une-variable-denvironnement-avec-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Créer une variable d’environnement avec export
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variables-en-lecture-seule-readonly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variables en lecture seule : readonly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-types-en-bash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les “types” en Bash
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supprimer-une-variable-avec-unset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supprimer une variable avec unset
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-complet-script-de-bienvenue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple complet : script de bienvenue
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-initial-vs-version-amelioree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple initial vs version améliorée
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#erreurs-classiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Erreurs classiques
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Erreurs classiques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mettre-des-espaces-autour-du" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mettre des espaces autour du =
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oublier-le" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Oublier le $
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oublier-les-guillemets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Oublier les guillemets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confondre-guillemets-simples-et-doubles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confondre guillemets simples et doubles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coller-une-variable-a-du-texte-sans-accolades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coller une variable à du texte sans accolades
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mini-lab-script-bienvenuesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mini-lab : script bienvenue.sh
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mini-lab : script bienvenue.sh">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#correction-possible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Correction possible
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mini-lab-bonus-script-de-scan-autorise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mini-lab bonus : script de scan autorisé
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-a-retenir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist à retenir
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resume" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Résumé
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pour-aller-plus-loin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pour aller plus loin
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arguments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arguments et variables spéciales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redirections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redirections, erreurs et pipes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operateurs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Opérateurs et calculs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conditions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditions et tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../boucles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les boucles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fonctions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fonctions et case
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chaines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manipuler les chaînes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tableaux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les tableaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../debug/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Déboguer et scripts propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cas pratiques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cas pratiques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../automatisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automatisation : cron et cas pratiques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recettes-bash/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recettes Bash utiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../python/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../pentest/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pentest
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pentest
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../osint/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSINT
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OSINT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Sur cette page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Sur cette page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objectifs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objectifs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-retenir-en-30-secondes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        À retenir en 30 secondes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creer-une-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Créer une variable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-regle-critique-pas-despace-autour-du" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La règle critique : pas d’espace autour du =
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#afficher-le-contenu-dune-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Afficher le contenu d’une variable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pourquoi-mettre-les-variables-entre-guillemets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pourquoi mettre les variables entre guillemets ?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifier-une-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modifier une variable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nommage-des-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nommage des variables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-forme-variable-pour-eviter-les-ambiguites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La forme ${variable} pour éviter les ambiguïtés
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guillemets-simples-ou-doubles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guillemets simples ou doubles ?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparaison-simple" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparaison simple
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demander-une-saisie-avec-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Demander une saisie avec read
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-simple-avec-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple simple avec read
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saisie-invisible-avec-read-s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saisie invisible avec read -s
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timeout-avec-read-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timeout avec read -t
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#options-utiles-de-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options utiles de read
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-cyber-faciliter-un-scan-nmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple cyber : faciliter un scan Nmap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stocker-le-resultat-dune-commande-commande" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stocker le résultat d’une commande : $(commande)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utiliser-commande-directement-dans-un-texte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utiliser $(commande) directement dans un texte
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stocker-plusieurs-resultats-de-commandes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stocker plusieurs résultats de commandes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-compter-les-fichiers-dans-un-dossier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple : compter les fichiers dans un dossier
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-recuperer-les-20-derniers-caracteres-dune-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple : récupérer les 20 derniers caractères d’une variable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-mesurer-la-longueur-dune-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple : mesurer la longueur d’une variable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ancienne-syntaxe-avec-backticks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ancienne syntaxe avec backticks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variables-denvironnement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variables d’environnement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variables-denvironnement-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variables d’environnement utiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creer-une-variable-denvironnement-avec-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Créer une variable d’environnement avec export
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variables-en-lecture-seule-readonly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variables en lecture seule : readonly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-types-en-bash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les “types” en Bash
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supprimer-une-variable-avec-unset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supprimer une variable avec unset
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-complet-script-de-bienvenue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple complet : script de bienvenue
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-initial-vs-version-amelioree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple initial vs version améliorée
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#erreurs-classiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Erreurs classiques
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Erreurs classiques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mettre-des-espaces-autour-du" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mettre des espaces autour du =
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oublier-le" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Oublier le $
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oublier-les-guillemets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Oublier les guillemets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confondre-guillemets-simples-et-doubles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confondre guillemets simples et doubles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coller-une-variable-a-du-texte-sans-accolades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coller une variable à du texte sans accolades
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mini-lab-script-bienvenuesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mini-lab : script bienvenue.sh
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mini-lab : script bienvenue.sh">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#correction-possible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Correction possible
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mini-lab-bonus-script-de-scan-autorise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mini-lab bonus : script de scan autorisé
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-a-retenir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist à retenir
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resume" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Résumé
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pour-aller-plus-loin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pour aller plus loin
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">bash</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">débutant</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">scripting</span>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+<h1 id="variables-affichage-et-saisie">Variables, affichage et saisie<a class="headerlink" href="#variables-affichage-et-saisie" title="Permanent link">&para;</a></h1>
+<p>Une variable est un conteneur avec une étiquette : un <strong>nom</strong> et une <strong>valeur</strong>.</p>
+<p>En Bash, les variables sont indispensables pour stocker une information, la réutiliser plus tard, demander une saisie à l’utilisateur, récupérer le résultat d’une commande ou automatiser un script.</p>
+<p>On peut se représenter une variable comme ceci :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>prenom = Alice
+</span></code></pre></div>
+<ul>
+<li><code>prenom</code> est le nom de la variable ;</li>
+<li><code>Alice</code> est la valeur stockée dedans.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Idée simple</p>
+<p>Une variable sert à éviter d’écrire une valeur en dur partout dans ton script.<br />
+Tu stockes une information une fois, puis tu la réutilises avec son nom.</p>
+</div>
+<hr />
+<h2 id="objectifs">Objectifs<a class="headerlink" href="#objectifs" title="Permanent link">&para;</a></h2>
+<p>À la fin de cette fiche, tu dois savoir :</p>
+<ul>
+<li>créer une variable ;</li>
+<li>afficher le contenu d’une variable ;</li>
+<li>comprendre pourquoi il ne faut pas mettre d’espace autour du <code>=</code> ;</li>
+<li>utiliser <code>$variable</code> et <code>${variable}</code> ;</li>
+<li>modifier une variable ;</li>
+<li>comprendre la différence entre guillemets simples et doubles ;</li>
+<li>demander une saisie avec <code>read</code> ;</li>
+<li>utiliser les options utiles de <code>read</code> ;</li>
+<li>stocker le résultat d’une commande avec <code>$(commande)</code> ;</li>
+<li>utiliser les variables d’environnement ;</li>
+<li>créer une variable en lecture seule avec <code>readonly</code>.</li>
+</ul>
+<hr />
+<h2 id="a-retenir-en-30-secondes">À retenir en 30 secondes<a class="headerlink" href="#a-retenir-en-30-secondes" title="Permanent link">&para;</a></h2>
+<p>Créer une variable :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">prenom</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span>
+</span></code></pre></div>
+<p>Afficher une variable :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$prenom</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Demander une saisie :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Ton prénom : &quot;</span><span class="w"> </span>prenom
+</span></code></pre></div>
+<p>Stocker le résultat d’une commande :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nv">machine</span><span class="o">=</span><span class="k">$(</span>hostname<span class="k">)</span>
+</span></code></pre></div>
+<p>Afficher une variable d’environnement :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$USER</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Règle critique :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">prenom</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span><span class="w">     </span><span class="c1"># correct</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nv">prenom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Alice&quot;</span><span class="w">   </span><span class="c1"># incorrect</span>
+</span></code></pre></div>
+<hr />
+<h2 id="creer-une-variable">Créer une variable<a class="headerlink" href="#creer-une-variable" title="Permanent link">&para;</a></h2>
+<p>Pour créer une variable en Bash :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nv">prenom</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span>
+</span></code></pre></div>
+<p>Puis pour l’afficher :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bonjour, </span><span class="nv">$prenom</span><span class="s2"> !&quot;</span>
+</span></code></pre></div>
+<p>Script complet :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nv">prenom</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bonjour, </span><span class="nv">$prenom</span><span class="s2"> !&quot;</span>
+</span></code></pre></div>
+<p>Résultat :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Bonjour, Alice !
+</span></code></pre></div>
+<hr />
+<h2 id="la-regle-critique-pas-despace-autour-du">La règle critique : pas d’espace autour du <code>=</code><a class="headerlink" href="#la-regle-critique-pas-despace-autour-du" title="Permanent link">&para;</a></h2>
+<p>En Bash, il ne faut <strong>jamais</strong> mettre d’espace autour du <code>=</code> lors de l’affectation d’une variable.</p>
+<p>Correct :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nv">prenom</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span>
+</span></code></pre></div>
+<p>Incorrect :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nv">prenom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Alice&quot;</span>
+</span></code></pre></div>
+<p>Pourquoi ?<br />
+Parce que Bash interprète <code>prenom</code> comme une commande, puis <code>=</code> et <code>"Alice"</code> comme des arguments.</p>
+<div class="admonition danger">
+<p class="admonition-title">Règle à ne jamais oublier</p>
+<p><code>prenom="Alice"</code> est une affectation de variable.<br />
+<code>prenom = "Alice"</code> fait croire à Bash que <code>prenom</code> est une commande.</p>
+</div>
+<hr />
+<h2 id="afficher-le-contenu-dune-variable">Afficher le contenu d’une variable<a class="headerlink" href="#afficher-le-contenu-dune-variable" title="Permanent link">&para;</a></h2>
+<p>Pour accéder au contenu d’une variable, on met un <code>$</code> devant son nom.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nv">prenom</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bonjour, </span><span class="nv">$prenom</span><span class="s2">&quot;</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bonjour, prenom&quot;</span>
+</span></code></pre></div>
+<p>Résultat :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Bonjour, Alice
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>Bonjour, prenom
+</span></code></pre></div>
+<p>Dans le premier cas, Bash remplace <code>$prenom</code> par sa valeur.<br />
+Dans le second cas, Bash affiche le mot <code>prenom</code> tel quel.</p>
+<hr />
+<h2 id="pourquoi-mettre-les-variables-entre-guillemets">Pourquoi mettre les variables entre guillemets ?<a class="headerlink" href="#pourquoi-mettre-les-variables-entre-guillemets" title="Permanent link">&para;</a></h2>
+<p>Même si ceci fonctionne souvent :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$prenom</span>
+</span></code></pre></div>
+<p>il vaut mieux écrire :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$prenom</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Pourquoi ?<br />
+Parce que si la variable contient des espaces, Bash peut découper la valeur en plusieurs morceaux.</p>
+<p>Exemple :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nv">nom</span><span class="o">=</span><span class="s2">&quot;Alice Dupont&quot;</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$nom</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$nom</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>La bonne pratique est donc :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$variable</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Bonne pratique</p>
+<p>Entoure presque toujours tes variables avec des guillemets doubles : <code>"$var"</code>.<br />
+C’est plus robuste, surtout si la valeur contient des espaces.</p>
+</div>
+<hr />
+<h2 id="modifier-une-variable">Modifier une variable<a class="headerlink" href="#modifier-une-variable" title="Permanent link">&para;</a></h2>
+<p>Une variable peut être modifiée après sa création.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="nv">humeur</span><span class="o">=</span><span class="s2">&quot;content&quot;</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Je suis </span><span class="nv">$humeur</span><span class="s2">&quot;</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="nv">humeur</span><span class="o">=</span><span class="s2">&quot;fatigué&quot;</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Maintenant je suis </span><span class="nv">$humeur</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Résultat :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Je suis content
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>Maintenant je suis fatigué
+</span></code></pre></div>
+<p>Ici, la variable <code>humeur</code> contient d’abord <code>content</code>, puis elle est remplacée par <code>fatigué</code>.</p>
+<hr />
+<h2 id="nommage-des-variables">Nommage des variables<a class="headerlink" href="#nommage-des-variables" title="Permanent link">&para;</a></h2>
+<p>En Bash, il est préférable d’utiliser :</p>
+<ul>
+<li>des lettres ;</li>
+<li>des chiffres ;</li>
+<li>des underscores <code>_</code> ;</li>
+<li>pas d’espace ;</li>
+<li>pas de tiret <code>-</code>.</li>
+</ul>
+<p>Exemples corrects :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nv">prenom</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="nv">nom_utilisateur</span><span class="o">=</span><span class="s2">&quot;alice&quot;</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="nv">ip_cible</span><span class="o">=</span><span class="s2">&quot;192.168.1.10&quot;</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="nv">nb_fichiers</span><span class="o">=</span><span class="m">12</span>
+</span></code></pre></div>
+<p>Exemples à éviter :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>nom<span class="w"> </span><span class="nv">utilisateur</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span><span class="w">   </span><span class="c1"># espace interdit</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>nom-utilisateur<span class="o">=</span><span class="s2">&quot;Alice&quot;</span><span class="w">   </span><span class="c1"># tiret problématique</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="nv">1nom</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span><span class="w">              </span><span class="c1"># commence par un chiffre</span>
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Convention simple</p>
+<p>Pour tes propres variables, utilise souvent le style <code>snake_case</code> :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nv">nom_utilisateur</span><span class="o">=</span><span class="s2">&quot;alice&quot;</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="nv">fichier_sortie</span><span class="o">=</span><span class="s2">&quot;resultats.txt&quot;</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="nv">ip_cible</span><span class="o">=</span><span class="s2">&quot;192.168.1.10&quot;</span>
+</span></code></pre></div>
+</div>
+<hr />
+<h2 id="la-forme-variable-pour-eviter-les-ambiguites">La forme <code>${variable}</code> pour éviter les ambiguïtés<a class="headerlink" href="#la-forme-variable-pour-eviter-les-ambiguites" title="Permanent link">&para;</a></h2>
+<p>Parfois, Bash ne sait pas où s’arrête le nom d’une variable.</p>
+<p>Exemple :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nv">animal</span><span class="o">=</span><span class="s2">&quot;chat&quot;</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;J&#39;ai 3 </span><span class="si">${</span><span class="nv">animal</span><span class="si">}</span><span class="s2">s&quot;</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;J&#39;ai 3 </span><span class="nv">$animals</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Résultat :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>J&#39;ai 3 chats
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>J&#39;ai 3
+</span></code></pre></div>
+<p>Dans la deuxième ligne, Bash cherche une variable nommée <code>animals</code>, qui n’existe pas.</p>
+<p>La bonne forme est donc :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;J&#39;ai 3 </span><span class="si">${</span><span class="nv">animal</span><span class="si">}</span><span class="s2">s&quot;</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">À retenir</p>
+<p><code>${variable}</code> permet de délimiter clairement le nom de la variable.</p>
+</div>
+<hr />
+<h2 id="guillemets-simples-ou-doubles">Guillemets simples ou doubles ?<a class="headerlink" href="#guillemets-simples-ou-doubles" title="Permanent link">&para;</a></h2>
+<p>Les guillemets doubles permettent à Bash d’interpréter les variables.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="nv">prenom</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bonjour, </span><span class="nv">$prenom</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Résultat :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>Bonjour, Alice
+</span></code></pre></div>
+<p>Les guillemets simples affichent tout littéralement.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nv">prenom</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;Bonjour, $prenom&#39;</span>
+</span></code></pre></div>
+<p>Résultat :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>Bonjour, $prenom
+</span></code></pre></div>
+<hr />
+<h2 id="comparaison-simple">Comparaison simple<a class="headerlink" href="#comparaison-simple" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="nv">prenom</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bonjour, </span><span class="nv">$prenom</span><span class="s2">&quot;</span>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;Bonjour, $prenom&#39;</span>
+</span></code></pre></div>
+<p>Résultat :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>Bonjour, Alice
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>Bonjour, $prenom
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Syntaxe</th>
+<th>Effet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"Bonjour, $prenom"</code></td>
+<td>la variable est interprétée</td>
+</tr>
+<tr>
+<td><code>'Bonjour, $prenom'</code></td>
+<td>tout est affiché tel quel</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">À retenir</p>
+<p>Guillemets doubles <code>" "</code> → Bash interprète les variables.<br />
+Guillemets simples <code>' '</code> → tout est littéral.</p>
+</div>
+<hr />
+<h2 id="demander-une-saisie-avec-read">Demander une saisie avec <code>read</code><a class="headerlink" href="#demander-une-saisie-avec-read" title="Permanent link">&para;</a></h2>
+<p>La commande <code>read</code> demande à l’utilisateur de taper quelque chose, puis stocke la réponse dans une variable.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Ton prénom : &quot;</span><span class="w"> </span>prenom
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Ton âge : &quot;</span><span class="w"> </span>age
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>
+</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Tu es </span><span class="nv">$prenom</span><span class="s2"> et tu as </span><span class="nv">$age</span><span class="s2"> ans.&quot;</span>
+</span></code></pre></div>
+<p>Exemple d’exécution :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>Ton prénom : Alice
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>Ton âge : 25
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>Tu es Alice et tu as 25 ans.
+</span></code></pre></div>
+<p>L’option <code>-p</code> permet d’afficher un message sur la même ligne que la saisie.</p>
+<hr />
+<h2 id="exemple-simple-avec-read">Exemple simple avec <code>read</code><a class="headerlink" href="#exemple-simple-avec-read" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Comment vous appelez-vous ? &quot;</span><span class="w"> </span>name
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bonjour </span><span class="nv">$name</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Résultat :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>Comment vous appelez-vous ? Cam
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>Bonjour Cam
+</span></code></pre></div>
+<hr />
+<h2 id="saisie-invisible-avec-read-s">Saisie invisible avec <code>read -s</code><a class="headerlink" href="#saisie-invisible-avec-read-s" title="Permanent link">&para;</a></h2>
+<p>Pour demander une information sensible, comme un mot de passe, on peut utiliser <code>-s</code>.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="nb">read</span><span class="w"> </span>-s<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Mot de passe : &quot;</span><span class="w"> </span>motdepasse
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="nb">echo</span>
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Mot de passe saisi.&quot;</span>
+</span></code></pre></div>
+<p>L’option <code>-s</code> masque la saisie à l’écran.</p>
+<div class="admonition warning">
+<p class="admonition-title">Attention</p>
+<p>Ne stocke pas de vrais mots de passe en clair dans tes scripts.<br />
+Cet exemple sert seulement à comprendre le fonctionnement de <code>read -s</code>.</p>
+</div>
+<hr />
+<h2 id="timeout-avec-read-t">Timeout avec <code>read -t</code><a class="headerlink" href="#timeout-avec-read-t" title="Permanent link">&para;</a></h2>
+<p>L’option <code>-t</code> permet de limiter le temps de saisie.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="nb">read</span><span class="w"> </span>-t<span class="w"> </span><span class="m">5</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Choix rapide : &quot;</span><span class="w"> </span>choix
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Choix : </span><span class="nv">$choix</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Ici, l’utilisateur a 5 secondes pour répondre.</p>
+<p>Exemple plus propre :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="k">if</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>-t<span class="w"> </span><span class="m">5</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Choix rapide : &quot;</span><span class="w"> </span>choix<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Tu as choisi : </span><span class="nv">$choix</span><span class="s2">&quot;</span>
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="k">else</span>
+</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="w">    </span><span class="nb">echo</span>
+</span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Temps écoulé.&quot;</span>
+</span><span id="__span-39-6"><a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a><span class="k">fi</span>
+</span></code></pre></div>
+<hr />
+<h2 id="options-utiles-de-read">Options utiles de <code>read</code><a class="headerlink" href="#options-utiles-de-read" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-p</code></td>
+<td>affiche un message avant la saisie</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td>masque la saisie</td>
+</tr>
+<tr>
+<td><code>-t</code></td>
+<td>définit un timeout</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>évite l’interprétation des backslashes</td>
+</tr>
+</tbody>
+</table>
+<p>Exemple recommandé quand tu lis une saisie texte simple :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Ton texte : &quot;</span><span class="w"> </span>texte
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Bonne pratique</p>
+<p>Utilise souvent <code>read -r</code> pour éviter que Bash interprète certains caractères spéciaux comme <code>\</code>.</p>
+</div>
+<hr />
+<h2 id="exemple-cyber-faciliter-un-scan-nmap">Exemple cyber : faciliter un scan Nmap<a class="headerlink" href="#exemple-cyber-faciliter-un-scan-nmap" title="Permanent link">&para;</a></h2>
+<p>Dans un lab ou un environnement autorisé, tu peux demander une IP à scanner.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;L&#39;adresse à scanner : &quot;</span><span class="w"> </span>ip_scan
+</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>
+</span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Scan de </span><span class="nv">$ip_scan</span><span class="s2"> en cours...&quot;</span>
+</span><span id="__span-41-6"><a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>nmap<span class="w"> </span>-F<span class="w"> </span>-sV<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ip_scan</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Ce script :</p>
+<ol>
+<li>demande une adresse IP ;</li>
+<li>la stocke dans <code>ip_scan</code> ;</li>
+<li>lance un scan rapide avec Nmap.</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Cadre légal</p>
+<p>N’utilise ce type de script que sur tes propres machines, un lab, un CTF ou un périmètre explicitement autorisé.</p>
+</div>
+<hr />
+<h2 id="stocker-le-resultat-dune-commande-commande">Stocker le résultat d’une commande : <code>$(commande)</code><a class="headerlink" href="#stocker-le-resultat-dune-commande-commande" title="Permanent link">&para;</a></h2>
+<p>La substitution de commande permet d’exécuter une commande et de récupérer sa sortie.</p>
+<p>Syntaxe :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="nv">variable</span><span class="o">=</span><span class="k">$(</span>commande<span class="k">)</span>
+</span></code></pre></div>
+<p>Exemple :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="nv">aujourdhui</span><span class="o">=</span><span class="k">$(</span>date<span class="k">)</span>
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Nous sommes le : </span><span class="nv">$aujourdhui</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Résultat possible :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>Nous sommes le : Mon May 25 21:30:00 CEST 2026
+</span></code></pre></div>
+<hr />
+<h2 id="utiliser-commande-directement-dans-un-texte">Utiliser <code>$(commande)</code> directement dans un texte<a class="headerlink" href="#utiliser-commande-directement-dans-un-texte" title="Permanent link">&para;</a></h2>
+<p>On peut aussi utiliser <code>$(commande)</code> directement dans un <code>echo</code>.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bienvenue sur cette machine : </span><span class="k">$(</span>hostname<span class="k">)</span><span class="s2"> !&quot;</span>
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;La date du jour : </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Résultat possible :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>Bienvenue sur cette machine : kali !
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>La date du jour : Mon May 25 21:30:00 CEST 2026
+</span></code></pre></div>
+<hr />
+<h2 id="stocker-plusieurs-resultats-de-commandes">Stocker plusieurs résultats de commandes<a class="headerlink" href="#stocker-plusieurs-resultats-de-commandes" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="nv">aujourdhui</span><span class="o">=</span><span class="k">$(</span>date<span class="k">)</span>
+</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="nv">utilisateur</span><span class="o">=</span><span class="k">$(</span>whoami<span class="k">)</span>
+</span><span id="__span-47-5"><a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a><span class="nv">machine</span><span class="o">=</span><span class="k">$(</span>hostname<span class="k">)</span>
+</span><span id="__span-47-6"><a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a><span class="nv">nb_fichiers</span><span class="o">=</span><span class="k">$(</span>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span>
+</span><span id="__span-47-7"><a id="__codelineno-47-7" name="__codelineno-47-7" href="#__codelineno-47-7"></a>
+</span><span id="__span-47-8"><a id="__codelineno-47-8" name="__codelineno-47-8" href="#__codelineno-47-8"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Machine : </span><span class="nv">$machine</span><span class="s2">&quot;</span>
+</span><span id="__span-47-9"><a id="__codelineno-47-9" name="__codelineno-47-9" href="#__codelineno-47-9"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Utilisateur : </span><span class="nv">$utilisateur</span><span class="s2">&quot;</span>
+</span><span id="__span-47-10"><a id="__codelineno-47-10" name="__codelineno-47-10" href="#__codelineno-47-10"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Nombre d&#39;éléments dans le dossier : </span><span class="nv">$nb_fichiers</span><span class="s2">&quot;</span>
+</span><span id="__span-47-11"><a id="__codelineno-47-11" name="__codelineno-47-11" href="#__codelineno-47-11"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Date : </span><span class="nv">$aujourdhui</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="exemple-compter-les-fichiers-dans-un-dossier">Exemple : compter les fichiers dans un dossier<a class="headerlink" href="#exemple-compter-les-fichiers-dans-un-dossier" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="nv">nb_fichiers</span><span class="o">=</span><span class="k">$(</span>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span>
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Il y a </span><span class="nv">$nb_fichiers</span><span class="s2"> éléments dans ce dossier&quot;</span>
+</span></code></pre></div>
+<p>Ce qui se passe :</p>
+<ol>
+<li><code>ls</code> liste les éléments du dossier ;</li>
+<li><code>wc -l</code> compte le nombre de lignes ;</li>
+<li><code>$(...)</code> récupère le résultat ;</li>
+<li>la variable <code>nb_fichiers</code> stocke ce résultat.</li>
+</ol>
+<hr />
+<h2 id="exemple-recuperer-les-20-derniers-caracteres-dune-variable">Exemple : récupérer les 20 derniers caractères d’une variable<a class="headerlink" href="#exemple-recuperer-les-20-derniers-caracteres-dune-variable" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="nv">var</span><span class="o">=</span><span class="s2">&quot;Ceci est une longue chaîne de caractères utilisée pour un test.&quot;</span>
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>
+</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a><span class="nv">last_20</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-c<span class="w"> </span><span class="m">20</span><span class="k">)</span>
+</span><span id="__span-49-4"><a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a>
+</span><span id="__span-49-5"><a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$last_20</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Ici :</p>
+<ul>
+<li><code>echo "$var"</code> affiche le contenu de la variable ;</li>
+<li><code>tail -c 20</code> garde les 20 derniers caractères ;</li>
+<li><code>last_20=$(...)</code> stocke le résultat.</li>
+</ul>
+<hr />
+<h2 id="exemple-mesurer-la-longueur-dune-variable">Exemple : mesurer la longueur d’une variable<a class="headerlink" href="#exemple-mesurer-la-longueur-dune-variable" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="nv">var</span><span class="o">=</span><span class="s2">&quot;Bonjour tout le monde&quot;</span>
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="nv">longueur</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-m<span class="k">)</span>
+</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>
+</span><span id="__span-50-4"><a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Longueur : </span><span class="nv">$longueur</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Tu peux l’utiliser dans une condition :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="nv">counter</span><span class="o">=</span><span class="m">35</span>
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="nv">var</span><span class="o">=</span><span class="s2">&quot;Bonjour tout le monde&quot;</span>
+</span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>
+</span><span id="__span-51-4"><a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$counter</span><span class="s2">&quot;</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">35</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-51-5"><a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a><span class="w">    </span><span class="nv">longueur</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-m<span class="k">)</span>
+</span><span id="__span-51-6"><a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Longueur de la variable : </span><span class="nv">$longueur</span><span class="s2">&quot;</span>
+</span><span id="__span-51-7"><a id="__codelineno-51-7" name="__codelineno-51-7" href="#__codelineno-51-7"></a><span class="k">fi</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>wc -m</code> compte les caractères.<br />
+<code>wc -c</code> compte les octets.</p>
+</div>
+<hr />
+<h2 id="ancienne-syntaxe-avec-backticks">Ancienne syntaxe avec backticks<a class="headerlink" href="#ancienne-syntaxe-avec-backticks" title="Permanent link">&para;</a></h2>
+<p>Tu peux parfois voir cette ancienne forme :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="nv">date_du_jour</span><span class="o">=</span><span class="sb">`</span>date<span class="sb">`</span>
+</span></code></pre></div>
+<p>Elle fonctionne, mais elle est moins lisible.</p>
+<p>Préférer :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="nv">date_du_jour</span><span class="o">=</span><span class="k">$(</span>date<span class="k">)</span>
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Bonne pratique</p>
+<p>Utilise <code>$(commande)</code> plutôt que les backticks.<br />
+C’est plus clair, plus moderne et plus facile à imbriquer.</p>
+</div>
+<hr />
+<h2 id="variables-denvironnement">Variables d’environnement<a class="headerlink" href="#variables-denvironnement" title="Permanent link">&para;</a></h2>
+<p>Le système définit déjà des variables utiles.</p>
+<p>Pour les afficher toutes :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>env
+</span></code></pre></div>
+<p>Quelques variables courantes :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Utilisateur : </span><span class="nv">$USER</span><span class="s2">&quot;</span>
+</span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Dossier perso : </span><span class="nv">$HOME</span><span class="s2">&quot;</span>
+</span><span id="__span-55-3"><a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Shell actuel : </span><span class="nv">$SHELL</span><span class="s2">&quot;</span>
+</span><span id="__span-55-4"><a id="__codelineno-55-4" name="__codelineno-55-4" href="#__codelineno-55-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Dossier actuel : </span><span class="nv">$PWD</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Résultat possible :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>Utilisateur : cam
+</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>Dossier perso : /home/cam
+</span><span id="__span-56-3"><a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a>Shell actuel : /bin/bash
+</span><span id="__span-56-4"><a id="__codelineno-56-4" name="__codelineno-56-4" href="#__codelineno-56-4"></a>Dossier actuel : /home/cam/scripts
+</span></code></pre></div>
+<hr />
+<h2 id="variables-denvironnement-utiles">Variables d’environnement utiles<a class="headerlink" href="#variables-denvironnement-utiles" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Signification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$USER</code></td>
+<td>utilisateur courant</td>
+</tr>
+<tr>
+<td><code>$HOME</code></td>
+<td>dossier personnel</td>
+</tr>
+<tr>
+<td><code>$SHELL</code></td>
+<td>shell utilisé</td>
+</tr>
+<tr>
+<td><code>$PWD</code></td>
+<td>dossier courant</td>
+</tr>
+<tr>
+<td><code>$PATH</code></td>
+<td>chemins où Bash cherche les commandes</td>
+</tr>
+<tr>
+<td><code>$LANG</code></td>
+<td>langue/locale du système</td>
+</tr>
+</tbody>
+</table>
+<p>Exemple :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Résultat possible :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+</span></code></pre></div>
+<hr />
+<h2 id="creer-une-variable-denvironnement-avec-export">Créer une variable d’environnement avec <code>export</code><a class="headerlink" href="#creer-une-variable-denvironnement-avec-export" title="Permanent link">&para;</a></h2>
+<p>Une variable classique n’est disponible que dans le shell courant.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="nv">nom</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span>
+</span></code></pre></div>
+<p>Pour transmettre une variable aux commandes ou scripts enfants, on utilise <code>export</code>.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NOM</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span>
+</span></code></pre></div>
+<p>Exemple :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">LAB_NAME</span><span class="o">=</span><span class="s2">&quot;cyber-lab&quot;</span>
+</span><span id="__span-61-2"><a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LAB_NAME</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>export</code> sera approfondi plus tard avec les notions de shell, environnement et scripts enfants.</p>
+</div>
+<hr />
+<h2 id="variables-en-lecture-seule-readonly">Variables en lecture seule : <code>readonly</code><a class="headerlink" href="#variables-en-lecture-seule-readonly" title="Permanent link">&para;</a></h2>
+<p>Pour qu’une variable ne puisse plus être modifiée, on utilise <code>readonly</code>.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a><span class="nb">readonly</span><span class="w"> </span><span class="nv">TOKEN</span><span class="o">=</span><span class="s2">&quot;valeur_fixe&quot;</span>
+</span></code></pre></div>
+<p>Si tu essaies de la modifier :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a><span class="nv">TOKEN</span><span class="o">=</span><span class="s2">&quot;autre&quot;</span>
+</span></code></pre></div>
+<p>Bash renvoie une erreur.</p>
+<p>Exemple :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-64-2"><a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a>
+</span><span id="__span-64-3"><a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a><span class="nb">readonly</span><span class="w"> </span><span class="nv">TEST</span><span class="o">=</span><span class="s2">&quot;Texte qu&#39;on ne pourra pas modifier&quot;</span>
+</span><span id="__span-64-4"><a id="__codelineno-64-4" name="__codelineno-64-4" href="#__codelineno-64-4"></a>
+</span><span id="__span-64-5"><a id="__codelineno-64-5" name="__codelineno-64-5" href="#__codelineno-64-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TEST</span><span class="s2">&quot;</span>
+</span><span id="__span-64-6"><a id="__codelineno-64-6" name="__codelineno-64-6" href="#__codelineno-64-6"></a>
+</span><span id="__span-64-7"><a id="__codelineno-64-7" name="__codelineno-64-7" href="#__codelineno-64-7"></a><span class="nv">TEST</span><span class="o">=</span><span class="s2">&quot;Essayer de modifier la variable&quot;</span>
+</span></code></pre></div>
+<p>Résultat possible :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>Texte qu&#39;on ne pourra pas modifier
+</span><span id="__span-65-2"><a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a>./script.sh: line 7: TEST: readonly variable
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Attention</p>
+<p><code>readonly</code> est utile pour éviter une modification accidentelle, mais ce n’est pas un mécanisme de sécurité fort.</p>
+</div>
+<hr />
+<h2 id="les-types-en-bash">Les “types” en Bash<a class="headerlink" href="#les-types-en-bash" title="Permanent link">&para;</a></h2>
+<p>En Bash, une variable est principalement du texte.</p>
+<p>Exemple :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-66-1"><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a><span class="nv">nombre</span><span class="o">=</span><span class="s2">&quot;42&quot;</span>
+</span><span id="__span-66-2"><a id="__codelineno-66-2" name="__codelineno-66-2" href="#__codelineno-66-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$nombre</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Même si <code>42</code> ressemble à un nombre, Bash le traite d’abord comme une chaîne de caractères.</p>
+<p>Pour faire un calcul, il faut utiliser une syntaxe adaptée :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-67-1"><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a><span class="nv">a</span><span class="o">=</span><span class="m">2</span>
+</span><span id="__span-67-2"><a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a><span class="nv">b</span><span class="o">=</span><span class="m">3</span>
+</span><span id="__span-67-3"><a id="__codelineno-67-3" name="__codelineno-67-3" href="#__codelineno-67-3"></a>
+</span><span id="__span-67-4"><a id="__codelineno-67-4" name="__codelineno-67-4" href="#__codelineno-67-4"></a><span class="nv">resultat</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="k">))</span>
+</span><span id="__span-67-5"><a id="__codelineno-67-5" name="__codelineno-67-5" href="#__codelineno-67-5"></a>
+</span><span id="__span-67-6"><a id="__codelineno-67-6" name="__codelineno-67-6" href="#__codelineno-67-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$resultat</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Résultat :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-68-1"><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>5
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">À retenir</p>
+<p>En Bash, tout est traité comme du texte par défaut, sauf quand tu utilises une syntaxe de calcul comme <code>$(( ... ))</code>.</p>
+</div>
+<hr />
+<h2 id="supprimer-une-variable-avec-unset">Supprimer une variable avec <code>unset</code><a class="headerlink" href="#supprimer-une-variable-avec-unset" title="Permanent link">&para;</a></h2>
+<p>Pour supprimer une variable :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-69-1"><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a><span class="nv">prenom</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span>
+</span><span id="__span-69-2"><a id="__codelineno-69-2" name="__codelineno-69-2" href="#__codelineno-69-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$prenom</span><span class="s2">&quot;</span>
+</span><span id="__span-69-3"><a id="__codelineno-69-3" name="__codelineno-69-3" href="#__codelineno-69-3"></a>
+</span><span id="__span-69-4"><a id="__codelineno-69-4" name="__codelineno-69-4" href="#__codelineno-69-4"></a><span class="nb">unset</span><span class="w"> </span>prenom
+</span><span id="__span-69-5"><a id="__codelineno-69-5" name="__codelineno-69-5" href="#__codelineno-69-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$prenom</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Après <code>unset</code>, la variable n’existe plus.</p>
+<div class="admonition tip">
+<p class="admonition-title">Cas utile</p>
+<p><code>unset</code> peut servir à nettoyer une variable temporaire ou éviter de réutiliser une ancienne valeur par erreur.</p>
+</div>
+<hr />
+<h2 id="exemple-complet-script-de-bienvenue">Exemple complet : script de bienvenue<a class="headerlink" href="#exemple-complet-script-de-bienvenue" title="Permanent link">&para;</a></h2>
+<p>Objectif :</p>
+<ol>
+<li>afficher le nom de la machine ;</li>
+<li>afficher la date ;</li>
+<li>demander le prénom ;</li>
+<li>afficher l’utilisateur courant.</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-70-1"><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-70-2"><a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a>
+</span><span id="__span-70-3"><a id="__codelineno-70-3" name="__codelineno-70-3" href="#__codelineno-70-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bienvenue sur cette machine : </span><span class="k">$(</span>hostname<span class="k">)</span><span class="s2"> !&quot;</span>
+</span><span id="__span-70-4"><a id="__codelineno-70-4" name="__codelineno-70-4" href="#__codelineno-70-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;La date du jour : </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-70-5"><a id="__codelineno-70-5" name="__codelineno-70-5" href="#__codelineno-70-5"></a>
+</span><span id="__span-70-6"><a id="__codelineno-70-6" name="__codelineno-70-6" href="#__codelineno-70-6"></a><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Comment vous appelez-vous ? &quot;</span><span class="w"> </span>name
+</span><span id="__span-70-7"><a id="__codelineno-70-7" name="__codelineno-70-7" href="#__codelineno-70-7"></a>
+</span><span id="__span-70-8"><a id="__codelineno-70-8" name="__codelineno-70-8" href="#__codelineno-70-8"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bonjour </span><span class="nv">$name</span><span class="s2">, connecté en tant que </span><span class="k">$(</span>whoami<span class="k">)</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Exécution :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>bienvenue.sh
+</span><span id="__span-71-2"><a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a>./bienvenue.sh
+</span></code></pre></div>
+<p>Résultat possible :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-72-1"><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a>Bienvenue sur cette machine : kali !
+</span><span id="__span-72-2"><a id="__codelineno-72-2" name="__codelineno-72-2" href="#__codelineno-72-2"></a>La date du jour : Mon May 25 21:30:00 CEST 2026
+</span><span id="__span-72-3"><a id="__codelineno-72-3" name="__codelineno-72-3" href="#__codelineno-72-3"></a>Comment vous appelez-vous ? Cam
+</span><span id="__span-72-4"><a id="__codelineno-72-4" name="__codelineno-72-4" href="#__codelineno-72-4"></a>Bonjour Cam, connecté en tant que kali
+</span></code></pre></div>
+<hr />
+<h2 id="exemple-initial-vs-version-amelioree">Exemple initial vs version améliorée<a class="headerlink" href="#exemple-initial-vs-version-amelioree" title="Permanent link">&para;</a></h2>
+<p>Version qui fonctionne, mais moins propre :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-73-2"><a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a>
+</span><span id="__span-73-3"><a id="__codelineno-73-3" name="__codelineno-73-3" href="#__codelineno-73-3"></a><span class="nv">machine</span><span class="o">=</span><span class="k">$(</span>hostname<span class="k">)</span>
+</span><span id="__span-73-4"><a id="__codelineno-73-4" name="__codelineno-73-4" href="#__codelineno-73-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bienvenue sur cette machine : &quot;</span><span class="nv">$machine</span><span class="s2">&quot; !&quot;</span>
+</span><span id="__span-73-5"><a id="__codelineno-73-5" name="__codelineno-73-5" href="#__codelineno-73-5"></a>
+</span><span id="__span-73-6"><a id="__codelineno-73-6" name="__codelineno-73-6" href="#__codelineno-73-6"></a><span class="nv">aujourdhui</span><span class="o">=</span><span class="k">$(</span>date<span class="k">)</span>
+</span><span id="__span-73-7"><a id="__codelineno-73-7" name="__codelineno-73-7" href="#__codelineno-73-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;La date du jour : &quot;</span><span class="nv">$aujourdhui</span><span class="s2">&quot;&quot;</span>
+</span><span id="__span-73-8"><a id="__codelineno-73-8" name="__codelineno-73-8" href="#__codelineno-73-8"></a>
+</span><span id="__span-73-9"><a id="__codelineno-73-9" name="__codelineno-73-9" href="#__codelineno-73-9"></a><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Comment vous appelez-vous ? &quot;</span><span class="w"> </span>name
+</span><span id="__span-73-10"><a id="__codelineno-73-10" name="__codelineno-73-10" href="#__codelineno-73-10"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bonjour &quot;</span><span class="nv">$name</span><span class="s2">&quot;, connecté en tant que </span><span class="k">$(</span>whoami<span class="k">)</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Version plus propre :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-74-1"><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-74-2"><a id="__codelineno-74-2" name="__codelineno-74-2" href="#__codelineno-74-2"></a>
+</span><span id="__span-74-3"><a id="__codelineno-74-3" name="__codelineno-74-3" href="#__codelineno-74-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bienvenue sur cette machine : </span><span class="k">$(</span>hostname<span class="k">)</span><span class="s2"> !&quot;</span>
+</span><span id="__span-74-4"><a id="__codelineno-74-4" name="__codelineno-74-4" href="#__codelineno-74-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;La date du jour : </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-74-5"><a id="__codelineno-74-5" name="__codelineno-74-5" href="#__codelineno-74-5"></a>
+</span><span id="__span-74-6"><a id="__codelineno-74-6" name="__codelineno-74-6" href="#__codelineno-74-6"></a><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Comment vous appelez-vous ? &quot;</span><span class="w"> </span>name
+</span><span id="__span-74-7"><a id="__codelineno-74-7" name="__codelineno-74-7" href="#__codelineno-74-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bonjour </span><span class="nv">$name</span><span class="s2">, connecté en tant que </span><span class="k">$(</span>whoami<span class="k">)</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Pourquoi c’est mieux ?</p>
+<ul>
+<li>moins de variables inutiles ;</li>
+<li><code>$(hostname)</code> et <code>$(date)</code> sont utilisés directement ;</li>
+<li><code>read -r</code> est plus robuste ;</li>
+<li>le code est plus lisible.</li>
+</ul>
+<hr />
+<h2 id="erreurs-classiques">Erreurs classiques<a class="headerlink" href="#erreurs-classiques" title="Permanent link">&para;</a></h2>
+<h3 id="mettre-des-espaces-autour-du">Mettre des espaces autour du <code>=</code><a class="headerlink" href="#mettre-des-espaces-autour-du" title="Permanent link">&para;</a></h3>
+<p>Incorrect :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-75-1"><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a><span class="nv">prenom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Alice&quot;</span>
+</span></code></pre></div>
+<p>Correct :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a><span class="nv">prenom</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="oublier-le">Oublier le <code>$</code><a class="headerlink" href="#oublier-le" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a><span class="nv">prenom</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span>
+</span><span id="__span-77-2"><a id="__codelineno-77-2" name="__codelineno-77-2" href="#__codelineno-77-2"></a>
+</span><span id="__span-77-3"><a id="__codelineno-77-3" name="__codelineno-77-3" href="#__codelineno-77-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bonjour, prenom&quot;</span>
+</span></code></pre></div>
+<p>Résultat :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-78-1"><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a>Bonjour, prenom
+</span></code></pre></div>
+<p>Correct :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-79-1"><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bonjour, </span><span class="nv">$prenom</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="oublier-les-guillemets">Oublier les guillemets<a class="headerlink" href="#oublier-les-guillemets" title="Permanent link">&para;</a></h3>
+<p>À éviter :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-80-1"><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$nom</span>
+</span></code></pre></div>
+<p>Préférer :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-81-1"><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$nom</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="confondre-guillemets-simples-et-doubles">Confondre guillemets simples et doubles<a class="headerlink" href="#confondre-guillemets-simples-et-doubles" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-82-1"><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a><span class="nv">prenom</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span>
+</span><span id="__span-82-2"><a id="__codelineno-82-2" name="__codelineno-82-2" href="#__codelineno-82-2"></a>
+</span><span id="__span-82-3"><a id="__codelineno-82-3" name="__codelineno-82-3" href="#__codelineno-82-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;Bonjour, $prenom&#39;</span>
+</span></code></pre></div>
+<p>Résultat :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-83-1"><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a>Bonjour, $prenom
+</span></code></pre></div>
+<p>Si tu veux afficher la valeur :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-84-1"><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bonjour, </span><span class="nv">$prenom</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="coller-une-variable-a-du-texte-sans-accolades">Coller une variable à du texte sans accolades<a class="headerlink" href="#coller-une-variable-a-du-texte-sans-accolades" title="Permanent link">&para;</a></h3>
+<p>Incorrect :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a><span class="nv">animal</span><span class="o">=</span><span class="s2">&quot;chat&quot;</span>
+</span><span id="__span-85-2"><a id="__codelineno-85-2" name="__codelineno-85-2" href="#__codelineno-85-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;J&#39;ai 3 </span><span class="nv">$animals</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Correct :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a><span class="nv">animal</span><span class="o">=</span><span class="s2">&quot;chat&quot;</span>
+</span><span id="__span-86-2"><a id="__codelineno-86-2" name="__codelineno-86-2" href="#__codelineno-86-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;J&#39;ai 3 </span><span class="si">${</span><span class="nv">animal</span><span class="si">}</span><span class="s2">s&quot;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Syntaxe</th>
+<th>Effet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nom="Alice"</code></td>
+<td>crée une variable</td>
+</tr>
+<tr>
+<td><code>echo "$nom"</code></td>
+<td>affiche la valeur de la variable</td>
+</tr>
+<tr>
+<td><code>${nom}</code></td>
+<td>délimite clairement le nom de la variable</td>
+</tr>
+<tr>
+<td><code>"texte $var"</code></td>
+<td>guillemets doubles : variable interprétée</td>
+</tr>
+<tr>
+<td><code>'texte $var'</code></td>
+<td>guillemets simples : tout est littéral</td>
+</tr>
+<tr>
+<td><code>read -r -p "Texte : " var</code></td>
+<td>demande une saisie utilisateur</td>
+</tr>
+<tr>
+<td><code>read -s -p "MDP : " var</code></td>
+<td>saisie invisible</td>
+</tr>
+<tr>
+<td><code>read -t 5 -p "Choix : " var</code></td>
+<td>saisie avec timeout</td>
+</tr>
+<tr>
+<td><code>resultat=$(commande)</code></td>
+<td>stocke le résultat d’une commande</td>
+</tr>
+<tr>
+<td><code>echo "$(commande)"</code></td>
+<td>exécute une commande directement dans un texte</td>
+</tr>
+<tr>
+<td><code>env</code></td>
+<td>affiche les variables d’environnement</td>
+</tr>
+<tr>
+<td><code>$USER</code></td>
+<td>utilisateur courant</td>
+</tr>
+<tr>
+<td><code>$HOME</code></td>
+<td>dossier personnel</td>
+</tr>
+<tr>
+<td><code>$SHELL</code></td>
+<td>shell courant</td>
+</tr>
+<tr>
+<td><code>$PWD</code></td>
+<td>dossier courant</td>
+</tr>
+<tr>
+<td><code>export VAR="x"</code></td>
+<td>rend une variable disponible pour les processus enfants</td>
+</tr>
+<tr>
+<td><code>readonly VAR="x"</code></td>
+<td>rend une variable non modifiable</td>
+</tr>
+<tr>
+<td><code>unset VAR</code></td>
+<td>supprime une variable</td>
+</tr>
+<tr>
+<td><code>$(( a + b ))</code></td>
+<td>effectue un calcul</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="mini-lab-script-bienvenuesh">Mini-lab : script <code>bienvenue.sh</code><a class="headerlink" href="#mini-lab-script-bienvenuesh" title="Permanent link">&para;</a></h2>
+<p>Crée un script <code>bienvenue.sh</code> qui :</p>
+<ol>
+<li>affiche <code>Bienvenue sur cette machine : [hostname]</code> ;</li>
+<li>affiche la date du jour ;</li>
+<li>demande le prénom de l’utilisateur ;</li>
+<li>affiche <code>Bonjour [prénom], connecté en tant que [whoami]</code> ;</li>
+<li>affiche le dossier courant avec <code>$PWD</code>.</li>
+</ol>
+<hr />
+<h3 id="correction-possible">Correction possible<a class="headerlink" href="#correction-possible" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-87-1"><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-87-2"><a id="__codelineno-87-2" name="__codelineno-87-2" href="#__codelineno-87-2"></a>
+</span><span id="__span-87-3"><a id="__codelineno-87-3" name="__codelineno-87-3" href="#__codelineno-87-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bienvenue sur cette machine : </span><span class="k">$(</span>hostname<span class="k">)</span><span class="s2"> !&quot;</span>
+</span><span id="__span-87-4"><a id="__codelineno-87-4" name="__codelineno-87-4" href="#__codelineno-87-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;La date du jour : </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-87-5"><a id="__codelineno-87-5" name="__codelineno-87-5" href="#__codelineno-87-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Dossier courant : </span><span class="nv">$PWD</span><span class="s2">&quot;</span>
+</span><span id="__span-87-6"><a id="__codelineno-87-6" name="__codelineno-87-6" href="#__codelineno-87-6"></a>
+</span><span id="__span-87-7"><a id="__codelineno-87-7" name="__codelineno-87-7" href="#__codelineno-87-7"></a><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Comment vous appelez-vous ? &quot;</span><span class="w"> </span>name
+</span><span id="__span-87-8"><a id="__codelineno-87-8" name="__codelineno-87-8" href="#__codelineno-87-8"></a>
+</span><span id="__span-87-9"><a id="__codelineno-87-9" name="__codelineno-87-9" href="#__codelineno-87-9"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bonjour </span><span class="nv">$name</span><span class="s2">, connecté en tant que </span><span class="k">$(</span>whoami<span class="k">)</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Rendre le script exécutable :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-88-1"><a id="__codelineno-88-1" name="__codelineno-88-1" href="#__codelineno-88-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>bienvenue.sh
+</span></code></pre></div>
+<p>Lancer le script :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-89-1"><a id="__codelineno-89-1" name="__codelineno-89-1" href="#__codelineno-89-1"></a>./bienvenue.sh
+</span></code></pre></div>
+<hr />
+<h2 id="mini-lab-bonus-script-de-scan-autorise">Mini-lab bonus : script de scan autorisé<a class="headerlink" href="#mini-lab-bonus-script-de-scan-autorise" title="Permanent link">&para;</a></h2>
+<p>Objectif : créer un petit script qui demande une adresse IP et prépare une commande Nmap.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-90-1"><a id="__codelineno-90-1" name="__codelineno-90-1" href="#__codelineno-90-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-90-2"><a id="__codelineno-90-2" name="__codelineno-90-2" href="#__codelineno-90-2"></a>
+</span><span id="__span-90-3"><a id="__codelineno-90-3" name="__codelineno-90-3" href="#__codelineno-90-3"></a><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Adresse IP à scanner : &quot;</span><span class="w"> </span>ip_scan
+</span><span id="__span-90-4"><a id="__codelineno-90-4" name="__codelineno-90-4" href="#__codelineno-90-4"></a>
+</span><span id="__span-90-5"><a id="__codelineno-90-5" name="__codelineno-90-5" href="#__codelineno-90-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Cible choisie : </span><span class="nv">$ip_scan</span><span class="s2">&quot;</span>
+</span><span id="__span-90-6"><a id="__codelineno-90-6" name="__codelineno-90-6" href="#__codelineno-90-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Commande exécutée : nmap -F -sV \&quot;</span><span class="nv">$ip_scan</span><span class="s2">\&quot;&quot;</span>
+</span><span id="__span-90-7"><a id="__codelineno-90-7" name="__codelineno-90-7" href="#__codelineno-90-7"></a>
+</span><span id="__span-90-8"><a id="__codelineno-90-8" name="__codelineno-90-8" href="#__codelineno-90-8"></a>nmap<span class="w"> </span>-F<span class="w"> </span>-sV<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ip_scan</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Cadre légal</p>
+<p>À utiliser uniquement sur un lab, une VM, un CTF ou une cible explicitement autorisée.</p>
+</div>
+<hr />
+<h2 id="checklist-a-retenir">Checklist à retenir<a class="headerlink" href="#checklist-a-retenir" title="Permanent link">&para;</a></h2>
+<p>Avant de considérer ton script comme propre, vérifie :</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> les variables sont créées sans espace autour du <code>=</code> ;</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> les variables sont appelées avec <code>$</code> ;</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> les variables sont entourées de guillemets doubles ;</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> les cas ambigus utilisent <code>${variable}</code> ;</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> les saisies utilisateur utilisent <code>read -r</code> ;</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> les commandes sont récupérées avec <code>$(commande)</code> ;</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> les variables sensibles ne sont pas écrites en dur inutilement ;</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> les valeurs importantes sont nommées clairement.</li>
+</ul>
+<hr />
+<h2 id="resume">Résumé<a class="headerlink" href="#resume" title="Permanent link">&para;</a></h2>
+<p>Une variable Bash sert à stocker une information.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-91-1"><a id="__codelineno-91-1" name="__codelineno-91-1" href="#__codelineno-91-1"></a><span class="nv">nom</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span>
+</span><span id="__span-91-2"><a id="__codelineno-91-2" name="__codelineno-91-2" href="#__codelineno-91-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$nom</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p><code>read</code> permet de demander une saisie utilisateur :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-92-1"><a id="__codelineno-92-1" name="__codelineno-92-1" href="#__codelineno-92-1"></a><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Ton nom : &quot;</span><span class="w"> </span>nom
+</span></code></pre></div>
+<p><code>$(commande)</code> permet de récupérer le résultat d’une commande :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-93-1"><a id="__codelineno-93-1" name="__codelineno-93-1" href="#__codelineno-93-1"></a><span class="nv">date_du_jour</span><span class="o">=</span><span class="k">$(</span>date<span class="k">)</span>
+</span></code></pre></div>
+<p>Les variables d’environnement sont déjà définies par le système :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-94-1"><a id="__codelineno-94-1" name="__codelineno-94-1" href="#__codelineno-94-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$USER</span><span class="s2">&quot;</span>
+</span><span id="__span-94-2"><a id="__codelineno-94-2" name="__codelineno-94-2" href="#__codelineno-94-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Et la règle la plus importante reste :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-95-1"><a id="__codelineno-95-1" name="__codelineno-95-1" href="#__codelineno-95-1"></a><span class="nv">variable</span><span class="o">=</span><span class="s2">&quot;valeur&quot;</span><span class="w">    </span><span class="c1"># correct</span>
+</span><span id="__span-95-2"><a id="__codelineno-95-2" name="__codelineno-95-2" href="#__codelineno-95-2"></a><span class="nv">variable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;valeur&quot;</span><span class="w">  </span><span class="c1"># incorrect</span>
+</span></code></pre></div>
+<hr />
+<h2 id="pour-aller-plus-loin">Pour aller plus loin<a class="headerlink" href="#pour-aller-plus-loin" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fiche précédente : <a href="../premier-script/">Écrire son premier script</a>.</li>
+<li>Fiche suivante : <a href="../arguments/">Arguments et variables spéciales</a>.</li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Dernière mise à jour">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="25 mai 2026 21:27:33 UTC">25 mai 2026</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Créé">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="25 mai 2026 21:27:33 UTC">25 mai 2026</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pied de page" >
+        
+          
+          <a href="../premier-script/" class="md-footer__link md-footer__link--prev" aria-label="Précédent: Écrire son premier script">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Précédent
+              </span>
+              <div class="md-ellipsis">
+                Écrire son premier script
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../arguments/" class="md-footer__link md-footer__link--next" aria-label="Suivant: Arguments et variables spéciales">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Suivant
+              </span>
+              <div class="md-ellipsis">
+                Arguments et variables spéciales
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 CyberSec
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/H4ckeurM4n" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
