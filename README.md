@@ -1,129 +1,60 @@
-# CyberSec
+# CyberSec Notes
 
-Blog de cours et tutoriels de cybersécurité : Bases, Bash, Python, Pentest, OSINT.
-
-Construit avec [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
+Blog de cours et tutoriels de cybersécurité (Bases, Bash, Python, Pentest, OSINT),
+construit avec [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
 
 ## Prérequis
 
 - Python 3.9 ou plus récent
 - `pip`
-- Git
 
 ## Lancer le site en local
 
 ```bash
-# 1. Créer un environnement virtuel
+# 1. (Optionnel mais recommandé) créer un environnement virtuel
 python3 -m venv .venv
+source .venv/bin/activate        # sous Windows : .venv\Scripts\activate
 
-# 2. Activer l'environnement virtuel
-source .venv/bin/activate
-
-# Sous Windows :
-# .venv\Scripts\activate
-
-# 3. Installer les dépendances
+# 2. Installer les dépendances
 pip install -r requirements.txt
 
-# 4. Lancer le serveur de développement
+# 3. Lancer le serveur de développement
 mkdocs serve
 ```
 
-Le site est alors visible sur :
-
-```txt
-http://127.0.0.1:8000
-```
-
-Il se recharge automatiquement à chaque modification d’un fichier.
+Le site est alors visible sur <http://127.0.0.1:8000>. Il se recharge tout seul
+à chaque modification d'un fichier.
 
 > [!NOTE]
-> **À propos de l’écosystème MkDocs.**  
-> Le site utilise MkDocs Material. Si un avertissement concernant MkDocs 2.0 apparaît au lancement, il peut être masqué avec :
->
-> ```bash
-> NO_MKDOCS_2_WARNING=1 mkdocs serve
-> ```
+> **À propos de l'écosystème MkDocs (2026).** Material for MkDocs est passé en
+> mode maintenance : il reçoit les correctifs de sécurité pendant au moins 12
+> mois et reste un choix sûr aujourd'hui. Son successeur, **Zensical** (même
+> équipe), lit les fichiers `mkdocs.yml` existants — ce projet pourra donc y
+> migrer plus tard sans tout réécrire. Un avertissement concernant « MkDocs 2.0 »
+> (un projet séparé) peut s'afficher au lancement : il est sans incidence. Pour
+> le masquer, lance `NO_MKDOCS_2_WARNING=1 mkdocs serve`.
 
-## Workflow courant
+## Ajouter une fiche (un cours)
 
-Pendant la rédaction :
+1. Crée un fichier `.md` dans le bon dossier, par ex. `docs/bash/les-pipes.md`.
+2. Ajoute-le à la navigation dans `mkdocs.yml`, sous le bon pilier :
 
-```bash
-source .venv/bin/activate
-mkdocs serve
-```
+   ```yaml
+   - Bash:
+       - bash/index.md
+       - Naviguer dans le terminal: bash/naviguer-terminal.md
+       - Les pipes: bash/les-pipes.md   # <-- ta nouvelle fiche
+   ```
 
-Avant de publier :
-
-```bash
-mkdocs build
-```
-
-Publier les modifications sur GitHub :
-
-```bash
-git status
-git add .
-git commit -m "Met à jour le site"
-git push
-```
-
-## Ajouter une fiche
-
-1. Créer un fichier `.md` dans le bon dossier.
-
-Exemple :
-
-```txt
-docs/bash/les-pipes.md
-```
-
-2. Ajouter la fiche dans la navigation du fichier `mkdocs.yml`.
-
-Exemple :
-
-```yaml
-- Bash:
-    - bash/index.md
-    - Scripting Bash:
-        - Les pipes: bash/les-pipes.md
-```
-
-3. Ajouter éventuellement un lien dans la page `index.md` du pilier concerné.
-
-4. Tester le site :
-
-```bash
-mkdocs build
-```
-
-5. Publier :
-
-```bash
-git add .
-git commit -m "Ajoute une fiche"
-git push
-```
+3. Pense à relier la fiche aux autres (maillage interne) et à la lister dans la
+   page `index.md` du pilier.
 
 ## Mettre en forme une fiche
 
-Les fiches peuvent utiliser les éléments MkDocs Material suivants :
-
-- encadrés : `!!! note`, `!!! tip`, `!!! warning`, `!!! danger`
-- blocs repliables : `??? example`
-- blocs de code avec bouton copier
-- tableaux Markdown
-- listes de tâches
-- tags
-- liens internes entre fiches
-
-Exemple :
-
-```md
-!!! tip "Bonne pratique"
-    Entoure tes variables avec des guillemets : `"$variable"`.
-```
+Les fiches d'exemple (`docs/bases/modele-osi.md` et
+`docs/bash/naviguer-terminal.md`) montrent les éléments disponibles :
+encadrés (`!!! note`, `!!! tip`, `!!! warning`), onglets (`=== "Linux"`),
+blocs de code avec bouton copier, tableaux, listes de tâches, et tags.
 
 ## Déployer sur GitHub Pages
 
@@ -134,7 +65,7 @@ Exemple :
    git add .
    git commit -m "Initialisation du blog"
    git branch -M main
-   git remote add origin https://github.com/TONPSEUDO/blog-cyber.git
+   git remote add origin https://github.com/H4ckeurM4n/CyberSec-notes.git
    git push -u origin main
    ```
 
@@ -142,30 +73,20 @@ Exemple :
    automatiquement à chaque `push` sur `main`.
 3. Dans les réglages du dépôt → **Pages**, choisis la branche `gh-pages`.
 4. Pense à mettre à jour `site_url`, `repo_url` et `repo_name` dans `mkdocs.yml`.
-5. Le site sera disponible ici :
-
-```txt
-https://h4ckeurm4n.github.io/CyberSec-site/
-```
 
 ## Structure du projet
 
-```txt
-blog-cyber/
-├── mkdocs.yml              # Configuration du site : thème, navigation, extensions
-├── requirements.txt        # Dépendances Python
-├── README.md               # Documentation du projet
-├── .gitignore              # Fichiers ignorés par Git
+```
+CyberSec-notes/
+├── mkdocs.yml          # Configuration (thème, nav, extensions)
+├── requirements.txt    # Dépendances Python
 ├── docs/
-│   ├── index.md            # Page d'accueil
-│   ├── assets/             # CSS, favicon, images
-│   │   └── extra.css       # Style personnalisé du site
-│   ├── bases/              # Pilier Bases
-│   ├── bash/               # Pilier Bash / Terminal
-│   ├── python/             # Pilier Python
-│   ├── pentest/            # Pilier Pentest
-│   └── osint/              # Pilier OSINT
-└── .github/
-    └── workflows/
-        └── deploy.yml      # Déploiement automatique GitHub Pages
+│   ├── index.md        # Page d'accueil (hub)
+│   ├── assets/         # CSS, favicon, images
+│   ├── bases/          # Pilier Bases
+│   ├── bash/           # Pilier Bash
+│   ├── python/         # Pilier Python
+│   ├── pentest/        # Pilier Pentest
+│   └── osint/          # Pilier OSINT
+└── .github/workflows/  # Déploiement automatique
 ```

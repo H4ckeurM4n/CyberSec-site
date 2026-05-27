@@ -1,13 +1,12 @@
 site_name: CyberSec Notes
 site_description: Notes pour moi-même, prises au fil de mes cours, labs, certifications, exercices pratiques et recherches.
-site_author: H4ckeurM4n
-# À remplacer par ton URL réelle une fois déployé
-site_url: https://h4ckeurm4n.github.io/CyberSec-site/
+site_author: Promethée
+site_url: https://h4ckeurm4n.github.io/CyberSec-notes/
 copyright: Copyright &copy; 2026 CyberSec
 
 # Active les liens "Modifier cette page" vers ton dépôt (optionnel)
-repo_url: https://github.com/H4ckeurM4n/CyberSec-site
-repo_name: H4ckeurM4n/CyberSec-site
+repo_url: https://github.com/H4ckeurM4n/CyberSec-notes
+repo_name: H4ckeurM4n/CyberSec-notes
 edit_uri: edit/main/docs/
 
 theme:
@@ -38,6 +37,8 @@ theme:
         icon: material/weather-sunny
         name: Passer en mode clair
   features:
+    - navigation.instant       # Navigation type SPA (pas de rechargement complet)
+    - navigation.instant.progress  # Barre de progression au chargement
     - navigation.tabs          # Les 5 piliers en onglets en haut
     - navigation.tabs.sticky   # Onglets toujours visibles au scroll
     - navigation.sections      # Regroupe les pages par section
@@ -50,11 +51,14 @@ theme:
     - search.share
     - content.code.copy        # Bouton copier sur les blocs de code
     - content.code.annotate    # Annotations dans le code
+    - content.tooltips         # Infobulles au survol (abréviations, liens)
     - content.tabs.link
 
 plugins:
   - search:
       lang: fr
+  # Zoom au clic sur les images (captures, schémas réseau…)
+  - glightbox
   # Date de création/modif automatique en bas des pages (via Git)
   - git-revision-date-localized:
       type: date
@@ -115,27 +119,28 @@ nav:
       - bases/index.md
       - Le modèle OSI: bases/modele-osi.md
   - Bash:
-    - bash/index.md
-    - Le terminal:
-        - Naviguer dans le terminal: bash/naviguer-terminal.md
-    - Scripting Bash:
-        - Écrire son premier script: bash/premier-script.md
-        - Variables et saisie: bash/variables.md
-        - Arguments et variables spéciales: bash/arguments.md
-        - Redirections, erreurs et pipes: bash/redirections.md
-        - Opérateurs et calculs: bash/operateurs.md
-        - Conditions et tests: bash/conditions.md
-        - Les boucles: bash/boucles.md
-        - Fonctions et case: bash/fonctions.md
-        - Manipuler les chaînes: bash/chaines.md
-        - Les tableaux: bash/tableaux.md
-        - Déboguer et scripts propres: bash/debug.md
-    - Cas pratiques:
-        - "Automatisation : cron et cas pratiques": bash/automatisation.md
-        - Recettes Bash utiles: bash/recettes-bash.md
+      - bash/index.md
+      - Le terminal:
+          - Naviguer dans le terminal: bash/naviguer-terminal.md
+      - Scripting Bash:
+          - Écrire son premier script: bash/premier-script.md
+          - Variables et saisie: bash/variables.md
+          - Arguments et variables spéciales: bash/arguments.md
+          - Redirections, erreurs et pipes: bash/redirections.md
+          - Opérateurs et calculs: bash/operateurs.md
+          - Conditions et tests: bash/conditions.md
+          - Les boucles: bash/boucles.md
+          - Fonctions et case: bash/fonctions.md
+          - Manipuler les chaînes: bash/chaines.md
+          - Les tableaux: bash/tableaux.md
+          - Déboguer et scripts propres: bash/debug.md
+      - Cas pratiques:
+          - "Automatisation : cron et cas pratiques": bash/automatisation.md
+          - Recettes Bash utiles: bash/recettes-bash.md
   - Python:
       - python/index.md
   - Pentest:
       - pentest/index.md
   - OSINT:
       - osint/index.md
+  - Tags: tags.md

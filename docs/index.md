@@ -4,7 +4,7 @@ hide:
   - toc
 ---
 
-# CyberSec
+# CyberSec Notes
 
 Bienvenue. Ce site regroupe des cours et tutoriels courts et pratiques sur la
 cybersécurité, le pentest, le terminal et l'OSINT. Chaque fiche traite **une
