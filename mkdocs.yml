@@ -1,12 +1,12 @@
-site_name: CyberSec Notes
+site_name: CyberSec Site
 site_description: Notes pour moi-même, prises au fil de mes cours, labs, certifications, exercices pratiques et recherches.
 site_author: Promethée
-site_url: https://h4ckeurm4n.github.io/CyberSec-notes/
+site_url: https://h4ckeurm4n.github.io/CyberSec-Site/
 copyright: Copyright &copy; 2026 CyberSec
 
 # Active les liens "Modifier cette page" vers ton dépôt (optionnel)
-repo_url: https://github.com/H4ckeurM4n/CyberSec-notes
-repo_name: H4ckeurM4n/CyberSec-notes
+repo_url: https://github.com/H4ckeurM4n/CyberSec-Site
+repo_name: H4ckeurM4n/CyberSec-Site
 edit_uri: edit/main/docs/
 
 theme:
